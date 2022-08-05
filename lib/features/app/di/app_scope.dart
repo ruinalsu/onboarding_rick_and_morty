@@ -34,6 +34,9 @@ class AppScope implements IAppScope {
   @override
   AppRouter get router => _router;
 
+  @override
+  CharactersService get charactersService => _charactersService;
+
   /// Create an instance [AppScope].
   AppScope({
     required VoidCallback applicationRebuilder,
@@ -100,4 +103,7 @@ abstract class IAppScope {
 
   /// Class that coordinates navigation for the whole app.
   AppRouter get router;
+
+  /// Characters service
+  CharactersService get charactersService;
 }

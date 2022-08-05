@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:rick_and_morty/features/rick_and_morty/clients/api_client.dart';
 import 'package:rick_and_morty/features/rick_and_morty/data/models/characters_response_model.dart';
-import 'package:rick_and_morty/features/rick_and_morty/domain/entities/character_entity.dart';
+import 'package:rick_and_morty/features/rick_and_morty/domain/entities/character.dart';
 import 'package:rick_and_morty/features/rick_and_morty/domain/repositories/characters_repository.dart';
 
 /// Implemetatation of [ICharactersRepository] interface
@@ -15,9 +15,11 @@ class CharactersRepositoryImpl implements ICharactersRepository {
 
   /// Gets list of characters by [name]
   @override
-  Future<List<CharacterEntity>> getCharacters(String? name) async {
-    var result = <CharacterEntity>[];
+  Future<List<Character>> getCharacters(String? name) async {
+    var result = <Character>[];
     try {
+      // TODO: temp solution for check loading dialog, should be removed
+      await Future<void>.delayed(const Duration(milliseconds: 500));
       final response = await _client.get('/character?name=${name ?? ''}');
 
       final parsedRes = CharactersResModel.fromJson(
