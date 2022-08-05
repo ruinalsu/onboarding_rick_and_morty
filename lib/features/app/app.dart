@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:rick_and_morty/assets/colors/colors.dart';
 import 'package:rick_and_morty/config/app_config.dart';
 import 'package:rick_and_morty/config/debug_options.dart';
 import 'package:rick_and_morty/config/environment/environment.dart';
@@ -41,14 +42,19 @@ class _AppState extends State<App> {
         /// Debug configuration.
         showPerformanceOverlay: _getDebugConfig().showPerformanceOverlay,
         debugShowMaterialGrid: _getDebugConfig().debugShowMaterialGrid,
-        checkerboardRasterCacheImages: _getDebugConfig().checkerboardRasterCacheImages,
-        checkerboardOffscreenLayers: _getDebugConfig().checkerboardOffscreenLayers,
+        checkerboardRasterCacheImages:
+            _getDebugConfig().checkerboardRasterCacheImages,
+        checkerboardOffscreenLayers:
+            _getDebugConfig().checkerboardOffscreenLayers,
         showSemanticsDebugger: _getDebugConfig().showSemanticsDebugger,
-        debugShowCheckedModeBanner: _getDebugConfig().debugShowCheckedModeBanner,
+        debugShowCheckedModeBanner:
+            _getDebugConfig().debugShowCheckedModeBanner,
 
         /// This is for navigation.
         routeInformationParser: _scope.router.defaultRouteParser(),
         routerDelegate: _scope.router.delegate(),
+
+        theme: ThemeData.dark().copyWith(scaffoldBackgroundColor: black),
       ),
     );
   }
