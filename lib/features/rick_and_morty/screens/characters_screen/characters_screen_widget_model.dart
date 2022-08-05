@@ -22,6 +22,7 @@ class CharactersScreenWidgetModel
     extends WidgetModel<CharactersScreen, CharactersScreenModel>
     implements ICharactersScreenWidgetModel {
   final _searchEditingController = TextEditingController();
+  final _searchFocusNode = FocusNode();
   final LoadingDialog? _loading;
   final _charactersState = EntityStateNotifier<List<Character>>.value([]);
 
@@ -32,6 +33,9 @@ class CharactersScreenWidgetModel
   @override
   TextEditingController get searchEditingController => _searchEditingController;
 
+  @override
+  FocusNode get searchFocusNode => _searchFocusNode;
+
   /// Creates an instance of [CharactersScreenWidgetModel]
   CharactersScreenWidgetModel({
     required CharactersScreenModel model,
@@ -40,19 +44,36 @@ class CharactersScreenWidgetModel
         super(model);
 
   @override
+  void initWidgetModel() {
+    super.initWidgetModel();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      fetchCharacters();
+    });
+  }
+
+  @override
   void dispose() {
     _searchEditingController.dispose();
+    _searchFocusNode.dispose();
     super.dispose();
   }
 
   @override
-  Future<void> fetchCharacters() async {
+  Future<void> fetchCharacters({bool loadMore = false}) async {
     final prevCharacters = _charactersState.value?.data;
+    if (_searchFocusNode.hasFocus) {
+      _searchFocusNode.unfocus();
+    }
     _loading?.show();
     try {
-      final characters =
-          await model.getCharacters(_searchEditingController.text);
-      _charactersState.content(characters);
+      final characters = await model
+          .getCharacters(_searchEditingController.text, loadMore: loadMore);
+      if (loadMore) {
+        prevCharacters?.addAll(characters);
+        _charactersState.content(prevCharacters!);
+      } else {
+        _charactersState.content(characters);
+      }
     } on Exception catch (e) {
       _charactersState.error(e, prevCharacters);
     } finally {
@@ -69,6 +90,9 @@ abstract class ICharactersScreenWidgetModel extends IWidgetModel {
   /// Text Editing Controller
   TextEditingController get searchEditingController;
 
+  /// Focus Node for the search input
+  FocusNode get searchFocusNode;
+
   /// Fetchs list of characters
-  Future<void> fetchCharacters();
+  Future<void> fetchCharacters({bool loadMore});
 }

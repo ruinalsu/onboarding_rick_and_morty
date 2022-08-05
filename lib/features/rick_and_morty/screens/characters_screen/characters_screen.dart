@@ -32,6 +32,7 @@ class CharactersScreen extends ElementaryWidget<ICharactersScreenWidgetModel> {
               SearchBar(
                 onSearch: () => wm.fetchCharacters(),
                 textController: wm.searchEditingController,
+                focusNode: wm.searchFocusNode,
                 padding: const EdgeInsets.only(
                   top: 25,
                   bottom: 15,
@@ -49,6 +50,7 @@ class CharactersScreen extends ElementaryWidget<ICharactersScreenWidgetModel> {
                   listenableEntityState: wm.charactersState,
                   builder: (_, characters) => CharactersList(
                     items: wm.charactersState.value!.data!,
+                    onLoadMore: () => wm.fetchCharacters(loadMore: true),
                   ),
                 ),
               ),

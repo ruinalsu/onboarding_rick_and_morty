@@ -32,14 +32,19 @@ class CharactersResInfoModel {
   /// Count of characters
   final int count;
 
+  /// Count of pages
+  final int pages;
+
   /// Creates an instance of [CharactersResInfoModel]
   CharactersResInfoModel({
     required this.count,
+    required this.pages,
   });
 
   /// Parses [json] to instance of [CharactersResInfoModel]
   factory CharactersResInfoModel.fromJson(Map<String, dynamic> json) =>
       CharactersResInfoModel(
         count: json['count'] as int,
+        pages: json['pages'] as int,
       );
 }
