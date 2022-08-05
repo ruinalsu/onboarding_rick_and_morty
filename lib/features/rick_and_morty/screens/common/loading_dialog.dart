@@ -12,9 +12,13 @@ class LoadingDialog {
 
   /// Shows loading dialog
   void show() {
+    if (_isVisible) {
+      return;
+    }
     _isVisible = true;
     showDialog<void>(
       context: _ctx,
+      barrierDismissible: false,
       builder: (_) => Dialog(
         backgroundColor: Colors.black45,
         child: DecoratedBox(
@@ -46,6 +50,7 @@ class LoadingDialog {
   void hide() {
     if (_isVisible) {
       Navigator.of(_ctx).pop();
+      _isVisible = false;
     }
   }
 }

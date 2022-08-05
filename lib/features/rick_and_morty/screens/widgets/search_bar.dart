@@ -13,9 +13,17 @@ class SearchBar extends StatelessWidget {
   /// Search input text controller
   final TextEditingController? textController;
 
+  /// Search input focus node
+  final FocusNode? focusNode;
+
   /// Creates an instance of [SearchBar] widget
-  const SearchBar({Key? key, this.padding, this.onSearch, this.textController})
-      : super(key: key);
+  const SearchBar({
+    Key? key,
+    this.padding,
+    this.onSearch,
+    this.textController,
+    this.focusNode,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +34,7 @@ class SearchBar extends StatelessWidget {
           Expanded(
             child: TextField(
               controller: textController,
+              focusNode: focusNode,
               style: textRegular16Secondary,
               decoration: InputDecoration(
                 border: OutlineInputBorder(
