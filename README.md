@@ -1,141 +1,80 @@
-# Шаблон
+## Rick and Morty API mobile app MVP
 
-Шаблон для инициализации проекта в [Surf](https://surfstudio.ru).
 
-### Требования
+### Business requirements:
 
-Версия flutter >= 2.5.0
+1. User should have ability to download and install the app on a mobile device
 
-### Инициализация
+2. User should have ability to view Rick and Morty characters with image and description
 
-При инициализации проекта нужно:
+3. User should have ability to search characters by name
 
-1. Найти по поиску rick_and_morty и в нужных местах заменить на название вашего проекта.
-2. Проинициализировать FirebaseCrashlytics(найти можно через TODO(init-project)).
+ 
 
-### Структура
+### Technical requirements:
 
-- assets
-    - fonts
-    - icons
-    - images
-- lib
-    - api
-        - data
-        - service
-            - {name}
-    - assets
-        - res
-        - themes
-        - colors
-        - strings
-    - config
-    - features
-        - {name/common}
-            - di
-            - domain
-                - entity
-                - repository
-                - mappers
-            - service
-            - screens
-                - {screen_name}
-                    - widget
-                    - wm
-                    - model
-            - widgets
-    - utils
-- scripts
-- test
-- tools
+1. List of characters should be presented as grid view with 2 columns
 
-#### assets
+2. Search bar should be placed above list of characters
 
-Содержит необходимые ресурсы(картинки, шрифты, иконки).
+3. Search bar should contains a text input and a button
 
-#### lib - кодовая часть проекта, в ней есть такие папки как:
+4. Search result should be updated by clicking the search button
 
-- api - слой данных и взаимодействия с Rest API. В ней находятся файлы сгенерированные при
-  помощи  [SurfGen](https://github.com/surfstudio/SurfGen).
-- assets - строковое представление необходимых ресурсов, темы, цвета, строки.
-- config - конфигурации проекта, например окружение(environment).
-- features - фичи используемые или реализуемые в проекте. В ней создаются папки с названиями
-  фич, в которых находятся все, что к этой фиче относится. В папке common находятся сущности расшаренные между несколькими фичами или нужные всему приложению,
-  старайтесь избегать добавления туда файлов без четкой необходимости, добавляйте в нее файлы
-  только тогда, когда это действительно нужно. Структура фич:
-    - di - контейнеры внедрения зависимостей.
-    - domain - содержит:
-        - entity - бизнес модели данных.
-        - repository - репозитории, относящиеся к фиче.
-        - mappers - мапперы данные-модель и обратно.
-    - service - бизнес логика.
-    - screens - экраны, относящиеся к фиче, каждый экран добавляется в отдельную папку с
-      названием экрана, в которой отдельными файлами лежат:
-        - widget - ElementaryWidget.
-        - wm - WidgetModel.
-        - model - ElementaryModel.
-    - widgets - виджеты, относящиеся к фиче.
-- utils - необходимые утилиты.
+5. Search bar should not scroll with list of characters
 
-#### scripts
+6. List of characters should preload 20 items and has a button with load more functionality on the bottom of the list
 
-Скрипты, необходимые для сборки артефакта проекта. Часть скриптов уже добавлена.
+7. Concrete character item should contains image of character, name and status
 
-#### test
+ 
 
-Тесты приложения.
+### Use cases:
 
-#### tools
+TBD
 
-Скрипты и туллинг для разработки(например, api_generator).
+ 
 
-### Аналитика
+### UI/UX:
 
-##### Подключены:
+TBD
 
-- [flutter_surf_lint_rules](https://pub.dev/packages/surf_lint_rules)
-- [dart_code_metrics](https://pub.dev/packages/dart_code_metrics) ([инструкция](https://jirasurf.atlassian.net/wiki/spaces/FLUT/pages/3369500703)
-  по сбору метрик проекта, настройка проекта уже выполнена)
+ 
 
-### Архитектура
+### Limitations:
 
-Используем архитектуру выстроенную вокруг [Elementary](https://github.com/Elementary-team/flutter-elementary). Экраны,
-а так же части интерфейса с собственной логикой описываются по принципу mvvm-паттерна. Несмотря на возможность реализации
-бизнес логики непосредственно в модели, модель оставляем лишь как первую точку доступа к бизнес-логики, саму же бизнес-логику
-реализуем в сервисах. При необходимости использования менеджера состояния на уровне сервисов можем реализовать и использовать
-надежные подходы - BLoC или Redux.
+Search suggestions, auto update search results and auto “load more” are out of scope of MVP
 
-### Навигация
+ 
 
-Навигация выстроена вокруг использования пакета [AutoRoute](https://pub.dev/packages/auto_route). Для глобальной навигации по приложению
-используются класс AppRouter и для вложенной - StackRouter. Несмотря на то что возможно обращение к StackRouter напрямую по контексту внутри WidgetModel,
-следует в явном виде передавать его в конструктор WidgetModel. Использование StackRouter из контекста позволяет получать актуальный стек навигации и управлять им рамках данного роутера. В свою очередь, AppRouter хранится в AppScope зависимостях и достается оттуда.
+### Tasks:
 
-### ApiGen
+1. Task - App skeleton (create project structure (surf_flutter_started) and setup)
+Estimation: N/A (need surf_flutter_started script investigation) - 1 priority, Original Estimation: 1h
 
-По умолчанию используем [SurfGen](https://github.com/surfstudio/SurfGen).
+2. Service Task [SPIKE] - Top-level architecture development (DI, used packages, infrastructure and presentation layer communication)
+Estimation: 1h - 1 priority
 
-[Руководство](https://jirasurf.atlassian.net/wiki/spaces/FLUT/pages/3387031634/SurfGen) по инициализации SurfGen на
-проекте(часть пунктов уже сделаны, проверьте их актуальность и соберите исполняемый файл(пункт 4)).
+3. Task - Rick and Morty API integration
+Estimation: 4h - 2 priority
 
-[Руководство](https://jirasurf.atlassian.net/wiki/spaces/FLUT/pages/3386572866/SurfGen) по использованию SurfGen на
-проекте.
+4. Task - List of characters UI implementation (UI markup, presentation layer, bl)
+Estimation: 4h - 2 priority
 
-### DI
+5. Task - Search bar UI implementation (UI markup, presentation layer, bl)
+Estimation: 2h - 3 priority
 
-В качестве DI используем [Provider](https://pub.dev/packages/provider).
+6. Task [Improvement] - Load more implementation
+Estimation: 1h - 4 priority
 
-Зависимости группируются в сущности-контейнеры с интерфейсом, описывающим набор поставляемых зависимостей. Эта сущность
-поставляется функционалу при помощи виджета [DiScope](./lib/features/common/widgets/di_scope/di_scope.dart), в который
-оборачивается соответствующий функционал.
 
-Например, [AppScope](./lib/features/app/di/app_scope.dart) - базовая сущность всего приложения, которая содержит
-зависимости, живущие все время, все приложение мы оборачиваем в DiScope<IAppScope>
-и передаем фабрику возвращающую AppScope.
+Tasks 4,5 can be splited on UI implementation and logic integration (if needed)
 
-Если какому-то функционалу нужны зависимости, требующиеся только ему, они выносятся в отдельную сущность, которая будет
-оборачивать этот функционал.
+ 
+### Total Estimation: 13h (2 mandays)
 
-### Примеры реализации
+ 
 
-[Пример](https://github.com/surfstudio/surf-flutter-app-template-example) использования шаблона с навигацией
+### Risks:
+surf_flutter_started - need usage investigation
+

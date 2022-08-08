@@ -3,20 +3,17 @@ import 'dart:ui';
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:elementary/elementary.dart';
+import 'package:rick_and_morty/api/clients/api_client.dart';
+import 'package:rick_and_morty/api/service/characters_service.dart';
 import 'package:rick_and_morty/config/app_config.dart';
 import 'package:rick_and_morty/config/environment/environment.dart';
 import 'package:rick_and_morty/features/navigation/service/router.dart';
-import 'package:rick_and_morty/features/rick_and_morty/clients/api_client.dart';
-import 'package:rick_and_morty/features/rick_and_morty/data/repositories/charactes_repoitory_impl.dart';
-import 'package:rick_and_morty/features/rick_and_morty/domain/repositories/characters_repository.dart';
-import 'package:rick_and_morty/features/rick_and_morty/domain/services/characters_service.dart';
 import 'package:rick_and_morty/util/default_error_handler.dart';
 
 /// Scope of dependencies which need through all app's life.
 class AppScope implements IAppScope {
   late final Dio _dio;
   late final ApiClient _apiClient;
-  late final ICharactersRepository _charactersRepository;
   late final CharactersService _charactersService;
   late final ErrorHandler _errorHandler;
   late final VoidCallback _applicationRebuilder;
@@ -46,8 +43,7 @@ class AppScope implements IAppScope {
 
     _dio = _initDio(additionalInterceptors);
     _apiClient = ApiClient(_dio);
-    _charactersRepository = CharactersRepositoryImpl(_apiClient);
-    _charactersService = CharactersService(_charactersRepository);
+    _charactersService = CharactersService(_apiClient);
     _errorHandler = DefaultErrorHandler();
     _router = AppRouter.instance();
   }

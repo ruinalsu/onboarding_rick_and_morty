@@ -1,11 +1,11 @@
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:rick_and_morty/api/data/character_model.dart';
 import 'package:rick_and_morty/features/app/di/app_scope.dart';
-import 'package:rick_and_morty/features/rick_and_morty/domain/entities/character.dart';
+import 'package:rick_and_morty/features/rick_and_morty/common/loading_dialog.dart';
 import 'package:rick_and_morty/features/rick_and_morty/screens/characters_screen/characters_screen.dart';
 import 'package:rick_and_morty/features/rick_and_morty/screens/characters_screen/characters_screen_modal.dart';
-import 'package:rick_and_morty/features/rick_and_morty/screens/common/loading_dialog.dart';
 
 /// Factory method for [CharactersScreenWidgetModel]
 CharactersScreenWidgetModel initCharactersScreenWMFactory(BuildContext ctx) {
@@ -24,10 +24,10 @@ class CharactersScreenWidgetModel
   final _searchEditingController = TextEditingController();
   final _searchFocusNode = FocusNode();
   final LoadingDialog? _loading;
-  final _charactersState = EntityStateNotifier<List<Character>>.value([]);
+  final _charactersState = EntityStateNotifier<List<CharacterModel>>.value([]);
 
   @override
-  ListenableState<EntityState<List<Character>>> get charactersState =>
+  ListenableState<EntityState<List<CharacterModel>>> get charactersState =>
       _charactersState;
 
   @override
@@ -75,6 +75,8 @@ class CharactersScreenWidgetModel
         _charactersState.content(characters);
       }
     } on Exception catch (e) {
+      // TODO: handle No items custom exception in normal way
+      // for all other cases show error dialog
       _charactersState.error(e, prevCharacters);
     } finally {
       _loading?.hide();
@@ -85,7 +87,7 @@ class CharactersScreenWidgetModel
 /// Inteface for [CharactersScreenWidgetModel]
 abstract class ICharactersScreenWidgetModel extends IWidgetModel {
   /// Listenet for the characters state
-  ListenableState<EntityState<List<Character>>> get charactersState;
+  ListenableState<EntityState<List<CharacterModel>>> get charactersState;
 
   /// Text Editing Controller
   TextEditingController get searchEditingController;

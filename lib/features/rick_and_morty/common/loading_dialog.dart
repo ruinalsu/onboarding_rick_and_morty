@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rick_and_morty/assets/colors/colors.dart';
+import 'package:rick_and_morty/assets/strings/strings.dart';
 import 'package:rick_and_morty/assets/themes/text_style.dart';
 
 /// Loading dialog
@@ -35,7 +36,7 @@ class LoadingDialog {
                   width: 10,
                 ),
                 Text(
-                  'Loading...',
+                  loadingStatusText,
                   style: textRegular16Secondary,
                 ),
               ],

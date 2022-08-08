@@ -1,4 +1,4 @@
-import 'package:rick_and_morty/features/rick_and_morty/data/models/character_model.dart';
+import 'package:rick_and_morty/api/data/character_model.dart';
 
 /// Characters response model
 class CharactersResModel {

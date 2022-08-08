@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rick_and_morty/assets/strings/strings.dart';
 
 /// Character Item widget
 class CharacterItem extends StatelessWidget {
@@ -14,8 +15,8 @@ class CharacterItem extends StatelessWidget {
   /// Creates an instance of [CharacterItem]
   const CharacterItem({
     Key? key,
-    this.name = 'N/A',
-    this.status = 'unknown',
+    this.name = notApplicableText,
+    this.status = unknownText,
     this.image = '',
   }) : super(key: key);
 
