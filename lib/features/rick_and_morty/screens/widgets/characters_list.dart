@@ -1,12 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:rick_and_morty/features/rick_and_morty/domain/entities/character.dart';
+import 'package:rick_and_morty/api/data/character_model.dart';
 import 'package:rick_and_morty/features/rick_and_morty/screens/widgets/character_item.dart';
 
 /// Characters List widget
 class CharactersList extends StatelessWidget {
   /// List of characters
-  final List<Character> items;
+  final List<CharacterModel> items;
 
   /// Calback to handle load more functionality
   final VoidCallback? onLoadMore;
@@ -32,6 +32,7 @@ class CharactersList extends StatelessWidget {
         return false;
       },
       child: GridView.builder(
+        key: ObjectKey(items),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           crossAxisSpacing: 10,

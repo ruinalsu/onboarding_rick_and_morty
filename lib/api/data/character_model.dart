@@ -1,17 +1,24 @@
-import 'package:rick_and_morty/features/rick_and_morty/domain/entities/character.dart';
-
 /// Character model
-class CharacterModel extends Character {
+class CharacterModel {
   /// ID of the character
   final int id;
+
+  /// Name of the character
+  final String? name;
+
+  /// Status of the characters
+  final String? status;
+
+  /// Link to the charactre's image
+  final String? image;
 
   /// Creates an instance of [CharacterModel]
   const CharacterModel({
     required this.id,
-    String? name,
-    String? status,
-    String? image,
-  }) : super(name: name, status: status, image: image);
+    this.name,
+    this.status,
+    this.image,
+  });
 
   /// Parses [json] to instance of [CharacterModel]
   factory CharacterModel.fromJson(Map<String, dynamic> json) => CharacterModel(

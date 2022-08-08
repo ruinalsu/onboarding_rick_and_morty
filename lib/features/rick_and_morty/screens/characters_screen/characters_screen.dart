@@ -1,5 +1,6 @@
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
+import 'package:rick_and_morty/assets/strings/strings.dart';
 import 'package:rick_and_morty/assets/themes/text_style.dart';
 import 'package:rick_and_morty/features/rick_and_morty/screens/characters_screen/characters_screen_widget_model.dart';
 import 'package:rick_and_morty/features/rick_and_morty/screens/widgets/characters_list.dart';
@@ -15,9 +16,9 @@ class CharactersScreen extends ElementaryWidget<ICharactersScreenWidgetModel> {
 
   @override
   Widget build(ICharactersScreenWidgetModel wm) {
-    return SafeArea(
-      child: Scaffold(
-        body: Padding(
+    return Scaffold(
+      body: SafeArea(
+        child: Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: 10,
             vertical: 5,
@@ -26,7 +27,7 @@ class CharactersScreen extends ElementaryWidget<ICharactersScreenWidgetModel> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Rick and Morty API',
+                charactersScreenNameText,
                 style: textRegular20Bold,
               ),
               SearchBar(
@@ -39,7 +40,7 @@ class CharactersScreen extends ElementaryWidget<ICharactersScreenWidgetModel> {
                 ),
               ),
               Text(
-                'Characters',
+                charactersListNameText,
                 style: textRegular20Bold,
               ),
               const SizedBox(
@@ -52,6 +53,8 @@ class CharactersScreen extends ElementaryWidget<ICharactersScreenWidgetModel> {
                     items: wm.charactersState.value!.data!,
                     onLoadMore: () => wm.fetchCharacters(loadMore: true),
                   ),
+                  errorBuilder: (_, __, ___) =>
+                      const Center(child: Text(noItemsText)),
                 ),
               ),
             ],
